@@ -47,6 +47,12 @@
 
     stage.addChild(graphics);
 
+    graphics.lineStyle (4, 0x000000);
+    graphics.beginFill(background);
+    graphics.drawCircle(centerX, centerY, innerCircleMaxRadius);
+    graphics.endFill();
+    graphics.lineStyle(0);
+
     createOuterCircles();
     drawOuterCircles();
     startRound();
