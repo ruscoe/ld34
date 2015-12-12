@@ -20,7 +20,9 @@
     var centerY = (renderer.height / 2);
 
     var innerCircleRadius, innerCircleMaxRadius, outerCircles;
-    var innerCircleMinRadius = 1;
+    var innerCircleMinRadius = 10;
+    var innerCircleShrinkRate = 0.175;
+    var innerCircleBoostRate = 20;
     var outerCircleRadius = 20;
 
     var circleColors = [0xFF0000, 0x00FF00, 0x0000FF, 0x0FABA2];
@@ -38,8 +40,7 @@
       y: centerY
     }]
 
-    innerCircleColor = getRandomCircleColor();
-    innerCircleRadius = innerCircleMaxRadius = 60;
+    innerCircleRadius = innerCircleMaxRadius = 80;
 
     document.addEventListener('keydown', handleKeyPress);
     document.body.appendChild(renderer.view);
@@ -47,6 +48,7 @@
     stage.addChild(graphics);
 
     createOuterCircles();
+    startRound();
     update();
 
     function update() {
@@ -57,7 +59,7 @@
         graphics.drawCircle(centerX, centerY, innerCircleRadius);
         graphics.endFill();
 
-        innerCircleRadius -= 0.5;
+        innerCircleRadius -= innerCircleShrinkRate;
 
         graphics.beginFill(innerCircleColor);
         graphics.drawCircle(centerX, centerY, innerCircleRadius);
@@ -67,6 +69,17 @@
       drawOuterCircles();
 
       renderer.render(stage);
+    }
+
+    function startRound() {
+      innerCircleColor = getRandomCircleColor();
+    }
+
+    function boostInnerCircle() {
+      innerCircleRadius += innerCircleBoostRate;
+      if (innerCircleRadius > innerCircleMaxRadius) {
+        innerCircleRadius = innerCircleMaxRadius;
+      }
     }
 
     function drawOuterCircles() {
@@ -116,6 +129,14 @@
       // Right arrow key.
       else if (key.keyCode == 39) {
         shiftOuterCircleColors(1);
+      }
+
+      if ((key.keyCode == 37) || (key.keyCode == 39)) {
+        // Check for win condition.
+        if (outerCircles[0].color == innerCircleColor) {
+          boostInnerCircle();
+          startRound();
+        }
       }
     }
   </script>
