@@ -18,12 +18,26 @@
     var centerX = (renderer.width / 2);
     var centerY = (renderer.height / 2);
 
-    var innerCircleRadius, innerCircleMaxRadius;
+    var innerCircleRadius, innerCircleMaxRadius, outerCircles;
     var innerCircleMinRadius = 1;
+    var outerCircleRadius = 20;
+
+    var circleColors = [0xFF0000, 0x00FF00, 0x0000FF, 0x0FABA2];
+    var circlePositions = [{
+      x: centerX,
+      y: centerY - (renderer.height / 4)
+    }, {
+      x: centerX + (renderer.width / 4),
+      y: centerY
+    }, {
+      x: centerX,
+      y: centerY + (renderer.height / 4)
+    }, {
+      x: centerX - (renderer.width / 4),
+      y: centerY
+    }]
 
     innerCircleRadius = innerCircleMaxRadius = 60;
-
-    console.log(innerCircleRadius);
 
     document.body.appendChild(renderer.view);
 
@@ -46,7 +60,30 @@
         graphics.endFill();
       }
 
+      drawOuterCircles();
+
       renderer.render(stage);
+    }
+
+    function drawOuterCircles() {
+      createOuterCircles();
+
+      for (var i = 0; i < outerCircles.length; i++) {
+        graphics.beginFill(outerCircles[i].color);
+        graphics.drawCircle(outerCircles[i].position.x, outerCircles[i].position.y, outerCircleRadius);
+        graphics.endFill();
+      }
+    }
+
+    function createOuterCircles() {
+      outerCircles = [];
+
+      for (var i = 0; i < circleColors.length; i++) {
+        outerCircles.push({
+          color: circleColors[i],
+          position: circlePositions[i]
+        });
+      }
     }
   </script>
 </body>
