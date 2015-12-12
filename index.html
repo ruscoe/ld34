@@ -58,6 +58,15 @@
     graphics.endFill();
     graphics.lineStyle(0);
 
+    var instructions = new PIXI.Text("Use left and right arrow keys to rotate the outer circles\nand match the inner circle's color.", {
+      font: "20px Arial",
+      fill: "black",
+      align: "center"
+    });
+    instructions.x = (centerX - (instructions.width / 2));
+    instructions.y = 20;
+    stage.addChild(instructions);
+
     createOuterCircles();
     drawOuterCircles();
     startRound();
