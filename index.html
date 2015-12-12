@@ -8,24 +8,46 @@
 
 <body>
   <script>
+    var background = 0xF1F1F1;
     var renderer = PIXI.autoDetectRenderer(512, 512, {
-      backgroundColor: 0xF1F1F1
+      backgroundColor: background
     });
     var stage = new PIXI.Container();
     var graphics = new PIXI.Graphics();
 
-    var innerCircle;
+    var centerX = (renderer.width / 2);
+    var centerY = (renderer.height / 2);
+
+    var innerCircleRadius, innerCircleMaxRadius;
+    var innerCircleMinRadius = 1;
+
+    innerCircleRadius = innerCircleMaxRadius = 60;
+
+    console.log(innerCircleRadius);
 
     document.body.appendChild(renderer.view);
 
-    var innerCircle = new PIXI.Graphics();
-    innerCircle.beginFill(0x000000);
-    innerCircle.drawCircle((renderer.width / 2), (renderer.height / 2), 10);
-    innerCircle.endFill();
+    stage.addChild(graphics);
 
-    stage.addChild(innerCircle);
+    update();
 
-    renderer.render(stage);
+    function update() {
+      requestAnimationFrame(update);
+
+      if (innerCircleRadius > innerCircleMinRadius) {
+        graphics.beginFill(background);
+        graphics.drawCircle(centerX, centerY, innerCircleRadius);
+        graphics.endFill();
+
+        innerCircleRadius -= 0.5;
+
+        graphics.beginFill(0x000000);
+        graphics.drawCircle(centerX, centerY, innerCircleRadius);
+        graphics.endFill();
+      }
+
+      renderer.render(stage);
+    }
   </script>
 </body>
 
