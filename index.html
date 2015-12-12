@@ -12,6 +12,7 @@
     var renderer = PIXI.autoDetectRenderer(512, 512, {
       backgroundColor: background
     });
+
     var stage = new PIXI.Container();
     var graphics = new PIXI.Graphics();
 
@@ -40,10 +41,12 @@
     innerCircleColor = getRandomCircleColor();
     innerCircleRadius = innerCircleMaxRadius = 60;
 
+    document.addEventListener('keydown', handleKeyPress);
     document.body.appendChild(renderer.view);
 
     stage.addChild(graphics);
 
+    createOuterCircles();
     update();
 
     function update() {
@@ -67,8 +70,6 @@
     }
 
     function drawOuterCircles() {
-      createOuterCircles();
-
       for (var i = 0; i < outerCircles.length; i++) {
         graphics.beginFill(outerCircles[i].color);
         graphics.drawCircle(outerCircles[i].position.x, outerCircles[i].position.y, outerCircleRadius);
@@ -87,8 +88,35 @@
       }
     }
 
+    function shiftOuterCircleColors(delta) {
+      var lastColor, currentColor;
+      for (var i = (delta > 0) ? 0 : (outerCircles.length - 1);
+        (delta > 0) ? i < outerCircles.length : i >= 0; i += delta) {
+        currentColor = outerCircles[i].color;
+        if (lastColor !== undefined) {
+          outerCircles[i].color = lastColor;
+        }
+        if ((delta > 0) && i == (outerCircles.length - 1) || (delta < 0) && i == 0) {
+          outerCircles[(delta > 0) ? 0 : (outerCircles.length - 1)].color = currentColor;
+        } else {
+          lastColor = currentColor;
+        }
+      }
+    }
+
     function getRandomCircleColor() {
       return (circleColors[Math.floor(Math.random() * circleColors.length)]);
+    }
+
+    function handleKeyPress(key) {
+      // Left arrow key.
+      if (key.keyCode == 37) {
+        shiftOuterCircleColors(-1);
+      }
+      // Right arrow key.
+      else if (key.keyCode == 39) {
+        shiftOuterCircleColors(1);
+      }
     }
   </script>
 </body>
