@@ -48,6 +48,7 @@
     stage.addChild(graphics);
 
     createOuterCircles();
+    drawOuterCircles();
     startRound();
     update();
 
@@ -66,9 +67,28 @@
         graphics.endFill();
       }
 
-      drawOuterCircles();
-
       renderer.render(stage);
+    }
+
+    function handleKeyPress(key) {
+      // Left arrow key.
+      if (key.keyCode == 37) {
+        shiftOuterCircleColors(-1);
+      }
+      // Right arrow key.
+      else if (key.keyCode == 39) {
+        shiftOuterCircleColors(1);
+      }
+
+      if ((key.keyCode == 37) || (key.keyCode == 39)) {
+        drawOuterCircles();
+
+        // Check for win condition.
+        if (outerCircles[0].color == innerCircleColor) {
+          boostInnerCircle();
+          startRound();
+        }
+      }
     }
 
     function startRound() {
@@ -119,25 +139,6 @@
 
     function getRandomCircleColor() {
       return (circleColors[Math.floor(Math.random() * circleColors.length)]);
-    }
-
-    function handleKeyPress(key) {
-      // Left arrow key.
-      if (key.keyCode == 37) {
-        shiftOuterCircleColors(-1);
-      }
-      // Right arrow key.
-      else if (key.keyCode == 39) {
-        shiftOuterCircleColors(1);
-      }
-
-      if ((key.keyCode == 37) || (key.keyCode == 39)) {
-        // Check for win condition.
-        if (outerCircles[0].color == innerCircleColor) {
-          boostInnerCircle();
-          startRound();
-        }
-      }
     }
   </script>
 </body>
