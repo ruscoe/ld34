@@ -144,7 +144,7 @@
     }
 
     function getRandomCircleColor() {
-      return (circleColors[Math.floor(Math.random() * circleColors.length)]);
+      return outerCircles[Math.floor(Math.random() * (circleColors.length - 1) + 1)].color;
     }
   </script>
 </body>
