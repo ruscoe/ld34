@@ -25,6 +25,7 @@
     var innerCircleShrinkRate = 0.175;
     var innerCircleBoostRate = 20;
     var outerCircleRadius = 20;
+    var points = 0;
 
     var circleColors = [0xFF0000, 0x00FF00, 0x0000FF, 0x0FABA2];
     var circlePositions = [{
@@ -67,6 +68,14 @@
     instructions.y = 20;
     stage.addChild(instructions);
 
+    var score = new PIXI.Text(points, {
+      font: "bold 40px Arial",
+      fill: "black"
+    });
+    score.x = (centerX - (score.width / 2));
+    score.y = (renderer.height - score.height - 20);
+    stage.addChild(score);
+
     createOuterCircles();
     drawOuterCircles();
     startRound();
@@ -105,7 +114,7 @@
       if ((key.keyCode == 37) || (key.keyCode == 39)) {
         drawOuterCircles();
 
-        // Check for win condition.
+        // Check for color match.
         if (outerCircles[0].color == innerCircleColor) {
           boostInnerCircle();
           startRound();
@@ -119,9 +128,18 @@
       innerCircleColor = getRandomCircleColor();
     }
 
+    function updateScore() {
+      score.text = points;
+      score.x = (centerX - (score.width / 2));
+    }
+
     function boostInnerCircle() {
       innerCircleRadius += innerCircleBoostRate;
-      if (innerCircleRadius > innerCircleMaxRadius) {
+      if (innerCircleRadius >= innerCircleMaxRadius) {
+        // Inner circle has reached max radius, increment points.
+        points++;
+        updateScore();
+
         innerCircleRadius = innerCircleMaxRadius;
       }
     }
