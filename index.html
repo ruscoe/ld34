@@ -37,6 +37,7 @@
       y: centerY
     }]
 
+    innerCircleColor = getRandomCircleColor();
     innerCircleRadius = innerCircleMaxRadius = 60;
 
     document.body.appendChild(renderer.view);
@@ -55,7 +56,7 @@
 
         innerCircleRadius -= 0.5;
 
-        graphics.beginFill(0x000000);
+        graphics.beginFill(innerCircleColor);
         graphics.drawCircle(centerX, centerY, innerCircleRadius);
         graphics.endFill();
       }
@@ -84,6 +85,10 @@
           position: circlePositions[i]
         });
       }
+    }
+
+    function getRandomCircleColor() {
+      return (circleColors[Math.floor(Math.random() * circleColors.length)]);
     }
   </script>
 </body>
