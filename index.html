@@ -1,18 +1,32 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
   <title>Ludum Dare 34</title>
   <script src="lib/pixi.min.js"></script>
 </head>
+
 <body>
   <script>
-    var renderer = PIXI.autoDetectRenderer(512, 512);
-    var stage = new PIXI.Stage(0xFFFFFF, true);
+    var renderer = PIXI.autoDetectRenderer(512, 512, {
+      backgroundColor: 0xF1F1F1
+    });
+    var stage = new PIXI.Container();
+    var graphics = new PIXI.Graphics();
+
+    var innerCircle;
 
     document.body.appendChild(renderer.view);
 
-    renderer.render(stage);
+    var innerCircle = new PIXI.Graphics();
+    innerCircle.beginFill(0x000000);
+    innerCircle.drawCircle((renderer.width / 2), (renderer.height / 2), 10);
+    innerCircle.endFill();
 
+    stage.addChild(innerCircle);
+
+    renderer.render(stage);
   </script>
 </body>
+
 </html>
