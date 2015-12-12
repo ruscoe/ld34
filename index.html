@@ -82,7 +82,7 @@
     update();
 
     function update() {
-      if (innerCircleRadius > innerCircleMinRadius) {
+      if (innerCircleRadius >= innerCircleMinRadius) {
         innerCircleGraphics.clear();
 
         innerCircleRadius -= innerCircleShrinkRate;
@@ -118,6 +118,8 @@
         if (outerCircles[0].color == innerCircleColor) {
           boostInnerCircle();
           startRound();
+        } else {
+          shrinkInnerCircle();
         }
 
         keyPressed = true;
@@ -141,6 +143,13 @@
         updateScore();
 
         innerCircleRadius = innerCircleMaxRadius;
+      }
+    }
+
+    function shrinkInnerCircle() {
+      innerCircleRadius -= innerCircleBoostRate;
+      if (innerCircleRadius < innerCircleMinRadius) {
+        innerCircleRadius = innerCircleMinRadius;
       }
     }
 
