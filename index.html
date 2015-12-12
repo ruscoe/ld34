@@ -20,7 +20,7 @@
     var centerX = (renderer.width / 2);
     var centerY = (renderer.height / 2);
 
-    var innerCircleRadius, innerCircleMaxRadius, outerCircles;
+    var innerCircleRadius, innerCircleMaxRadius, outerCircles, keyPressed;
     var innerCircleMinRadius = 10;
     var innerCircleShrinkRate = 0.175;
     var innerCircleBoostRate = 20;
@@ -44,12 +44,15 @@
     innerCircleRadius = innerCircleMaxRadius = 80;
 
     document.addEventListener('keydown', handleKeyPress);
+    document.addEventListener('keyup', function() {
+      keyPressed = false;
+    });
     document.body.appendChild(renderer.view);
 
     stage.addChild(graphics);
     stage.addChild(innerCircleGraphics);
 
-    graphics.lineStyle (4, 0x000000);
+    graphics.lineStyle(4, 0x000000);
     graphics.beginFill(background);
     graphics.drawCircle(centerX, centerY, innerCircleMaxRadius);
     graphics.endFill();
@@ -77,6 +80,10 @@
     }
 
     function handleKeyPress(key) {
+      if (keyPressed) {
+        return;
+      }
+
       // Left arrow key.
       if (key.keyCode == 37) {
         shiftOuterCircleColors(-1);
@@ -94,6 +101,8 @@
           boostInnerCircle();
           startRound();
         }
+
+        keyPressed = true;
       }
     }
 
