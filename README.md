@@ -5,6 +5,8 @@ game jam.
 
 This game combines both the winning themes - *Growing* and *Two button controls*.
 
+You can ***[play a demo here](http://demo.ruscoe.org/ld34/)***.
+
 ## Requirements
 
 * [Pixi.js](http://www.pixijs.com/)
