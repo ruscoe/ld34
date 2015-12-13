@@ -9,7 +9,7 @@
 <body>
   <script>
     var background = 0xF1F1F1;
-    var renderer = PIXI.autoDetectRenderer(512, 512, {
+    var renderer = PIXI.autoDetectRenderer(600, 600, {
       backgroundColor: background,
       antialias: true
     });
@@ -19,31 +19,31 @@
     var innerCircleGraphics = new PIXI.Graphics();
 
     var centerX = (renderer.width / 2);
-    var centerY = (renderer.height / 2);
+    var centerY = ((renderer.height / 2) + 30);
 
     var innerCircleRadius, innerCircleMaxRadius, outerCircles, keyPressed;
-    var innerCircleMinRadius = 10;
+    var innerCircleMinRadius = 30;
     var innerCircleShrinkRate = 0.175;
     var innerCircleBoostRate = 20;
-    var outerCircleRadius = 20;
+    var outerCircleRadius = 30;
     var points = 0;
 
     var circleColors = [0xFF0000, 0x00FF00, 0x0000FF, 0x0FABA2];
     var circlePositions = [{
       x: centerX,
-      y: centerY - (renderer.height / 4)
+      y: centerY - (renderer.height / 3)
     }, {
-      x: centerX + (renderer.width / 4),
+      x: centerX + (renderer.width / 3),
       y: centerY
     }, {
       x: centerX,
-      y: centerY + (renderer.height / 4)
+      y: centerY + (renderer.height / 3)
     }, {
-      x: centerX - (renderer.width / 4),
+      x: centerX - (renderer.width / 3),
       y: centerY
     }]
 
-    innerCircleRadius = innerCircleMaxRadius = 80;
+    innerCircleRadius = innerCircleMaxRadius = 140;
 
     document.addEventListener('keydown', handleKeyPress);
     document.addEventListener('keyup', function() {
@@ -55,7 +55,7 @@
     stage.addChild(graphics);
 
     graphics.lineStyle(4, 0xFFFFFF);
-    graphics.drawCircle(centerX, centerY, (renderer.width / 4));
+    graphics.drawCircle(centerX, centerY, (renderer.width / 3));
     graphics.lineStyle(0);
 
     graphics.lineStyle(4, 0x000000);
