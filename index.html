@@ -50,13 +50,11 @@
     });
     document.body.appendChild(renderer.view);
 
-    stage.addChild(graphics);
     stage.addChild(innerCircleGraphics);
+    stage.addChild(graphics);
 
     graphics.lineStyle(4, 0x000000);
-    graphics.beginFill(background);
     graphics.drawCircle(centerX, centerY, innerCircleMaxRadius);
-    graphics.endFill();
     graphics.lineStyle(0);
 
     var instructions = new PIXI.Text("Use left and right arrow keys to rotate the outer circles\nand match the inner circle's color.", {
@@ -90,6 +88,10 @@
         innerCircleGraphics.beginFill(innerCircleColor);
         innerCircleGraphics.drawCircle(centerX, centerY, innerCircleRadius);
         innerCircleGraphics.endFill();
+
+        graphics.lineStyle(2, 0xFFFFFF);
+        graphics.drawCircle(centerX, centerY, innerCircleMinRadius);
+        graphics.lineStyle(0);
       } else if (points > 0) {
         resetScore();
       }
