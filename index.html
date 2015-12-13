@@ -54,13 +54,24 @@
     stage.addChild(innerCircleGraphics);
     stage.addChild(graphics);
 
+    // Draw outer circle background.
     graphics.lineStyle(4, 0xFFFFFF);
     graphics.drawCircle(centerX, centerY, (renderer.width / 3));
     graphics.lineStyle(0);
 
+    // Draw inner circle outline.
     graphics.lineStyle(4, 0x000000);
     graphics.drawCircle(centerX, centerY, innerCircleMaxRadius);
     graphics.lineStyle(0);
+
+    // Draw selected color indicator.
+    graphics.beginFill(0x000000);
+    graphics.moveTo(centerX, (centerY - innerCircleMaxRadius));
+    graphics.lineTo((centerX + 20), (centerY - innerCircleMaxRadius));
+    graphics.lineTo(centerX, ((centerY - innerCircleMaxRadius) - 20));
+    graphics.lineTo((centerX - 20), (centerY - innerCircleMaxRadius));
+    graphics.lineTo(centerX, (centerY - innerCircleMaxRadius));
+    graphics.endFill();
 
     var instructions = new PIXI.Text("Use left and right arrow keys to rotate the outer circles.\nMatch the inner circle's color.", {
       font: "22px Arial",
