@@ -10,7 +10,8 @@
   <script>
     var background = 0xF1F1F1;
     var renderer = PIXI.autoDetectRenderer(512, 512, {
-      backgroundColor: background
+      backgroundColor: background,
+      antialias: true
     });
 
     var stage = new PIXI.Container();
@@ -53,6 +54,10 @@
     stage.addChild(innerCircleGraphics);
     stage.addChild(graphics);
 
+    graphics.lineStyle(4, 0xFFFFFF);
+    graphics.drawCircle(centerX, centerY, (renderer.width / 4));
+    graphics.lineStyle(0);
+
     graphics.lineStyle(4, 0x000000);
     graphics.drawCircle(centerX, centerY, innerCircleMaxRadius);
     graphics.lineStyle(0);
@@ -89,7 +94,7 @@
         innerCircleGraphics.drawCircle(centerX, centerY, innerCircleRadius);
         innerCircleGraphics.endFill();
 
-        graphics.lineStyle(2, 0xFFFFFF);
+        graphics.lineStyle(2, background);
         graphics.drawCircle(centerX, centerY, innerCircleMinRadius);
         graphics.lineStyle(0);
       } else if (points > 0) {
