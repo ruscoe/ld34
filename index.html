@@ -64,7 +64,7 @@
 
     var instructions = new PIXI.Text("Use left and right arrow keys to rotate the outer circles\nand match the inner circle's color.", {
       font: "20px Arial",
-      fill: "black",
+      fill: 0x000000,
       align: "center"
     });
     instructions.x = (centerX - (instructions.width / 2));
@@ -73,10 +73,10 @@
 
     var score = new PIXI.Text(points, {
       font: "bold 40px Arial",
-      fill: "black"
+      fill: 0xFFFFFF
     });
     score.x = (centerX - (score.width / 2));
-    score.y = (renderer.height - score.height - 20);
+    score.y = (centerY - (score.height / 2));
     stage.addChild(score);
 
     createOuterCircles();
